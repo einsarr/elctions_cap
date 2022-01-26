@@ -1,0 +1,32 @@
+﻿.notification{
+		position: absolute;
+		z-index: 15;
+		cursor:pointer;
+        border-left: 6px solid #27c24c;
+        font-size:12px;
+        line-height:15px;
+        font-weight:400;
+        font-family:Calibri;
+        padding:10px 5px 10px 5px;
+        letter-spacing:1px; 
+        border-radius: 0 5px 5px 0;
+        margin-top:0;
+        color: #FFF;
+        background-color:  #27c24c;
+		width: 300px;
+        text-align:center;
+        height: auto;
+        margin-left:-300px;
+        margin-top:50px;
+        -webkit-box-shadow: 0px 0px 7px -2px rgba(50, 50, 50, 0.75);
+		-moz-box-shadow:    0px 0px 7px -2px rgba(50, 50, 50, 0.75);
+		box-shadow:         0px 0px 7px -2px rgba(50, 50, 50, 0.75);
+	}
+    .notification a {
+        color:#fff;
+    }
+
+     .notification hr {
+        color:#fff;
+        margin:5px;
+    }

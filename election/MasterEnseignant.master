@@ -1,0 +1,148 @@
+﻿<%@ Master Language="VB"  CodeFile="MasterEnseignant.master.vb" Inherits="MasterEnseignant" %>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head runat="server">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Portail Mirador</title>
+    <link rel="icon" href="Content/img/favicon/favicon.ico">
+    <link rel="stylesheet" href="Content/vendor/nprogress/nprogress.css">
+    <script src="<%= Page.ResolveUrl("~/Content/vendor/nprogress/nprogress.js")%>"></script>
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="Content/vendor/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="Content/vendor/owl.carousel/dist/assets/owl.carousel.css">
+    <link rel="stylesheet" href="Content/vendor/owl.carousel/dist/assets/owl.theme.default.css">
+    <link rel="stylesheet" href="Content/vendor/Nivo-Lightbox/nivo-lightbox.css">
+    <link rel="stylesheet" href="Content/vendor/Nivo-Lightbox/themes/default/default.css">
+    <link rel="stylesheet" href="Content/vendor/animate.css/animate.css">
+    <link href="Content/css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="Content/css/theme-b.css">
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-61829461-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+</head>
+
+<body>
+    <form runat="server">
+<%--        <div class="preloader">
+            <div class="loading">Chargement ...</div>
+        </div>--%>
+        <header class="header">
+            <div class="navbar navbar-default navbar-fixed-top navbar-sticky1">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" data-toggle="collapse" data-target="#navbar-main" class="navbar-toggle">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="#" class="navbar-brand">
+                            <img src="<%= Page.ResolveUrl("~/Content/img/logo-ens.png")%>" alt="">
+                        </a>
+                    </div>
+                    <div id="navbar-main" class="navbar-collapse collapse ">
+                        <ul class="nav navbar-nav navbar-right main-navbar ">
+                            <li><a href="<%= Page.ResolveUrl("~/Default.aspx#header")%>">Accueil</a></li>
+                            <li><a href="<%= Page.ResolveUrl("~/AideMiroir.aspx#features")%>">Aide</a></li>
+                            <li><a href="<%= Page.ResolveUrl("~/AideMiroir.aspx#desc3")%>">Miroirs</a></li>
+                            <% 
+                                If Session("connexion_ok") = 1 Then
+                            %>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <i class="fa fa-user text-muted"></i>
+                                    <%= Session("t_prenoms") %>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <% If Session("connexion_sso") = 0 Then  %>
+                                        <li><a href="<%= Page.ResolveUrl("~/Account/validpassw.aspx")%>"><i class="fa fa-key"></i>Changer mot de passe</a></li>
+                                    <% End If   %>
+                                    <li class="divider"></li>
+                                    <li><a href="<%= Page.ResolveUrl("~/Account/deconnexion.aspx")%>"><i class="fa fa-lock"></i>Déconnexion</a></li>
+                                </ul>
+                            </li>
+                            <% Else%>
+                            <li><a href="<%= Page.ResolveUrl("~/Account/connexion.aspx")%>">Connexion</a></li>
+                            <li><a href="<%= Page.ResolveUrl("~/Account/inscription.aspx")%>">Inscription</a></li>
+                            <% End If%>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <%-- <div class="container1" style="margin-top:50px;text-align:right">
+            <img class="img-responsive" src="<%= Page.ResolveUrl("~/Content/img/espace-enseignant.jpg")%>" />
+        </div>--%>
+        </header>
+
+        <asp:ContentPlaceHolder ID="Contenu" runat="server">
+        </asp:ContentPlaceHolder>
+
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <ul class="footer-nav">
+                            <li><a href="<%= Page.ResolveUrl("~/Default.aspx")%>">Accueil</a></li>
+                            <li><a href="<%= Page.ResolveUrl("~/AideMiroir.aspx#features")%>">Aide</a></li>
+                            <li><a href="<%= Page.ResolveUrl("~/AideMiroir.aspx#desc3")%>">Miroirs</a></li>
+
+                            <% 
+                                If Session("connexion_ok") = 1 Then
+                            %>
+                                <% If Session("connexion_sso") = 0 Then  %>
+                                    <li><a href="<%= Page.ResolveUrl("~/Account/validpassw.aspx")%>"><i class="fa fa-key"></i>Changer mot de passe</a></li>
+                                <% End If   %>
+                            <li class="divider"></li>
+                            <li><a href="<%= Page.ResolveUrl("~/Account/deconnexion.aspx")%>"><i class="fa fa-lock"></i>Déconnexion</a></li>
+                            <% Else%>
+
+                            <li><a href="<%= Page.ResolveUrl("~/Account/connexion.aspx")%>">Connexion</a></li>
+                            <li><a href="<%= Page.ResolveUrl("~/Account/inscription.aspx")%>">Inscription</a></li>
+
+                            <% End If%>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="copyright">&copy; <%=DateTime.UtcNow.Year%> - Mirador MEN/MFPAA</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/jquery/dist/jquery.min.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/jquery.easing/js/jquery.easing.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/bootstrap/dist/js/bootstrap.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/smoothscroll/smoothscroll.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/owl.carousel/dist/owl.carousel.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/Nivo-Lightbox/nivo-lightbox.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/html5shiv/dist/html5shiv.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/respond/src/respond.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/retina.js/dist/retina.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/jquery.scrollTo/jquery.scrollTo.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/wow/dist/wow.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/matchMedia/matchMedia.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/background-video/jquery.backgroundvideo.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/jQuery-One-Page-Nav/jquery.nav.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/vendor/jQuery-Storage-API/jquery.storageapi.js")%>"></script>
+        <script src="<%= Page.ResolveUrl("~/Content/js/scripts.js")%>"></script>
+    </form>
+    
+</body>
+</html>
