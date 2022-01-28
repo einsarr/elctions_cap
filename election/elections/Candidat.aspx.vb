@@ -16,12 +16,11 @@ Partial Class elections_Candidat
         If Me.IMG_PHOTO_CANDIDAT.HasFile Then
             IMG_PHOTO_CANDIDAT.SaveAs(folderpath & photo_candicat)
         End If
-        Dim query As String = "INSERT INTO ELECTION_CAP_CANDIDAT(ID_ENSEIGNANT,ID_SYNDICAT,ID_COLLEGE,PHOTO_CANDIDAT) VALUES (@ID_ENSEIGNANT,@ID_SYNDICAT,@ID_COLLEGE,@PHOTO_CANDIDAT)"
+        Dim query As String = "INSERT INTO ELECTION_CAP_CANDIDAT(ID_SYNDICAT,ID_CORPS_GROUPES,PHOTO_CANDIDAT) VALUES (@ID_SYNDICAT,@ID_CORPS_GROUPES,@PHOTO_CANDIDAT)"
         Dim con As New SqlConnection(connectionString)
         Dim cmd As New SqlCommand(query, con)
-        cmd.Parameters.AddWithValue("@ID_ENSEIGNANT", DLL_ENSEIGNANT.SelectedValue.ToString)
         cmd.Parameters.AddWithValue("@ID_SYNDICAT", DLL_SYNDICAT.SelectedValue.ToString)
-        cmd.Parameters.AddWithValue("@ID_COLLEGE", DLL_COLLGEE.SelectedValue.ToString)
+        cmd.Parameters.AddWithValue("@ID_CORPS_GROUPES", DLL_CORPS_GROUPES.SelectedValue.ToString)
         cmd.Parameters.AddWithValue("@PHOTO_CANDIDAT", photo_candicat)
         con.Open()
         cmd.ExecuteNonQuery()

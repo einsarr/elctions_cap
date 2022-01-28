@@ -17,6 +17,7 @@
                     <asp:BoundField DataField="ID_SYNDICAT" HeaderText="N°" InsertVisible="False" ReadOnly="True" SortExpression="ID_SYNDICAT" />
                     <asp:BoundField DataField="CODE_SYNDICAT" HeaderText="CODE SYNDICAT" SortExpression="CODE_SYNDICAT" />
                     <asp:BoundField DataField="LIBELLE_SYNDICAT" HeaderText="LIBELLE SYNDICAT" SortExpression="LIBELLE_SYNDICAT" />
+                    <asp:BoundField DataField="PRENOM_NOM_SG" HeaderText="PRENOM_NOM_SG" SortExpression="PRENOM_NOM_SG" />
                     <asp:TemplateField HeaderText="LOGO">
                         <ItemTemplate>
                             <asp:Image ID="LOGO" Width="25%" runat="server" ImageUrl='<%# Eval("LOGO", "~/elections/images/{0}") %>' AlternateText="Le ticket a été modifié" Visible="true" />
