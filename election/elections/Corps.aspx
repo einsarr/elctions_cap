@@ -9,20 +9,20 @@
     
         <br />
      <div class="col-md-12">
-        <div class="table-responsive col-md-6">
+        <div class="table-responsive col-md-12">
             <asp:GridView ID="GridView1" CssClass="table table-bordered table-striped" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="ID_CORPS" DataSourceID="SqlDataSource1">
                 <Columns>
                     <asp:BoundField DataField="ID_CORPS" HeaderText="ID_CORPS" InsertVisible="False" ReadOnly="True" SortExpression="ID_CORPS" />
                     <asp:BoundField DataField="LIBELLE_CORPS" HeaderText="LIBELLE_CORPS" SortExpression="LIBELLE_CORPS" />
                     <asp:BoundField DataField="HIERARCHIE" HeaderText="HIERARCHIE" SortExpression="HIERARCHIE" />
-                    <asp:BoundField DataField="ID_CORPS_GROUPE" HeaderText="ID_CORPS_GROUPE" SortExpression="ID_CORPS_GROUPE" />
+                    <asp:BoundField DataField="LIBELLE_CORPS_GROUPES" HeaderText="LIBELLE_CORPS_GROUPES" SortExpression="LIBELLE_CORPS_GROUPES" />
                 </Columns>
             </asp:GridView>
         </div>
     </div>
 
      
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT * FROM [ELECTION_CAP_CORPS]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT ELECTION_CAP_CORPS.ID_CORPS, ELECTION_CAP_CORPS.LIBELLE_CORPS, ELECTION_CAP_CORPS.HIERARCHIE, CORPS_GROUPES.LIBELLE_CORPS_GROUPES FROM ELECTION_CAP_CORPS INNER JOIN CORPS_GROUPES ON ELECTION_CAP_CORPS.ID_CORPS_GROUPE = CORPS_GROUPES.ID_CORPS_GROUPES"></asp:SqlDataSource>
 
 
      
@@ -35,6 +35,12 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
+
+            <asp:Button ID="BtAnnulerCloture" CssClass="btn btn-primary" runat="server" Text="Voter" />
+                                 <asp:Panel ID="PaneAnnulationCloture" runat="server">
+                                    <asp:Button ID="Button1" runat="server" Font-Bold="True" ForeColor="#FF3300" Text="Confirmer" CommandName="bnt_voter" CommandArgument='<%# Eval("ID_SYNDICAT") & " " & Eval("ID_CORPS_GROUPES") %>'/>
+                                 </asp:Panel>
+
             <div class="modal-body">
                 <div class="form-group">
                     <label for="TXT_LIBELLE_CORPS">Libellé corps</label>

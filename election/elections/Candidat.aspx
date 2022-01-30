@@ -11,23 +11,28 @@
         <br />
      <div class="col-md-12">
         <div class="table-responsive">
-            <asp:GridView ID="GridView1" CssClass="table table-bordered table-striped" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Expr1" DataSourceID="SqlDataSource1">
+            <asp:GridView ID="GridView1" CssClass="table table-bordered table-striped" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="ID_CANDIDAT" DataSourceID="SqlDataSource1">
                 <Columns>
-                    <asp:BoundField DataField="Expr1" HeaderText="Expr1" InsertVisible="False" ReadOnly="True" SortExpression="Expr1" />
-                    <asp:BoundField DataField="CODE_SYNDICAT" HeaderText="CODE_SYNDICAT" SortExpression="CODE_SYNDICAT" />
+                    <%--<asp:BoundField DataField="PHOTO_SG" HeaderText="PHOTO_SG" SortExpression="PHOTO_SG" />--%>
+                
+                    <asp:BoundField DataField="ID_CANDIDAT" HeaderText="ID_CANDIDAT" InsertVisible="False" ReadOnly="True" SortExpression="ID_CANDIDAT" />
                     <asp:BoundField DataField="LIBELLE_CORPS_GROUPES" HeaderText="LIBELLE_CORPS_GROUPES" SortExpression="LIBELLE_CORPS_GROUPES" />
+                    <asp:BoundField DataField="CODE_SYNDICAT" HeaderText="CODE_SYNDICAT" SortExpression="CODE_SYNDICAT" />
+                    <%--<asp:BoundField DataField="PHOTO_SG" HeaderText="PHOTO_SG" SortExpression="PHOTO_SG" />--%>
+                    <asp:BoundField DataField="LIBELLE_CLASSE" HeaderText="LIBELLE_CLASSE" SortExpression="LIBELLE_CLASSE" />
                     <asp:TemplateField HeaderText="LOGO">
                         <ItemTemplate>
-                            <asp:Image ID="PHOTO_CANDIDAT" Width="25%" runat="server" ImageUrl='<%# Eval("PHOTO_CANDIDAT", "~/elections/images/{0}") %>' AlternateText="Le ticket a été modifié" Visible="true" />
+                            <asp:Image ID="PHOTO_SG" Width="25%" runat="server" ImageUrl='<%# Eval("PHOTO_SG", "~/elections/images/{0}") %>' AlternateText="Le ticket a été modifié" Visible="true" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
+                
             </asp:GridView>
         </div>
     </div>
 
      
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT ELECTION_CAP_CANDIDAT.ID_CANDIDAT AS Expr1, ELECTION_CAP_SYNDICAT.CODE_SYNDICAT, CORPS_GROUPES.LIBELLE_CORPS_GROUPES, ELECTION_CAP_CANDIDAT.PHOTO_CANDIDAT FROM ELECTION_CAP_CANDIDAT INNER JOIN ELECTION_CAP_SYNDICAT ON ELECTION_CAP_CANDIDAT.ID_SYNDICAT = ELECTION_CAP_SYNDICAT.ID_SYNDICAT INNER JOIN CORPS_GROUPES ON ELECTION_CAP_CANDIDAT.ID_CORPS_GROUPES = CORPS_GROUPES.ID_CORPS_GROUPES"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT ELECTION_CAP_CANDIDAT.ID_CANDIDAT, ELECTION_CAP_CORPS_GROUPES.LIBELLE_CORPS_GROUPES, ELECTION_CAP_SYNDICAT.PHOTO_SG, ELECTION_CAP_SYNDICAT.CODE_SYNDICAT, ELECTION_CAP_CLASSE.LIBELLE_CLASSE FROM ELECTION_CAP_CANDIDAT INNER JOIN ELECTION_CAP_SYNDICAT ON ELECTION_CAP_CANDIDAT.ID_SYNDICAT = ELECTION_CAP_SYNDICAT.ID_SYNDICAT INNER JOIN ELECTION_CAP_CORPS_GROUPES ON ELECTION_CAP_CANDIDAT.ID_CORPS_GROUPES = ELECTION_CAP_CORPS_GROUPES.ID_CORPS_GROUPES LEFT JOIN ELECTION_CAP_CLASSE ON ELECTION_CAP_CANDIDAT.ID_CLASSE = ELECTION_CAP_CLASSE.ID_CLASSE"></asp:SqlDataSource>
 
     <div class="modal fade" id="formulaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
@@ -53,9 +58,15 @@
                  </div>
 
                 <div class="form-group">
+                    <asp:Label runat="server" AssociatedControlID="DLL_CLASSE">CLASSE</asp:Label>
+                    <asp:DROPDOWNLIST runat="server" ID="DLL_CLASSE" DataSourceID="SqlDLL_CLASSE" CssClass="form-control" DataTextField="LIBELLE_CLASSE" DataValueField="ID_CLASSE"></asp:DROPDOWNLIST>
+                    <asp:SqlDataSource ID="SqlDLL_CLASSE" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT NULL AS ID_CLASSE, '--------' AS LIBELLE_CLASSE UNION SELECT ID_CLASSE, LIBELLE_CLASSE FROM ELECTION_CAP_CLASSE ORDER BY LIBELLE_CLASSE"></asp:SqlDataSource>
+                 </div>
+
+                <%--<div class="form-group">
                     <label for="IMG_PHOTO_CANDIDAT">Photo du candidat</label>
                     <asp:FileUpload ID="IMG_PHOTO_CANDIDAT" runat="server"  AllowMultiple="false" class="form-control" />
-                </div>
+                </div>--%>
             </div>
             <div class="modal-footer">
                 <asp:Button ID="btn_add_candidat" runat="server" CssClass="btn btn-primary" Text="Enregistrer" Width="146px" TabIndex="1" Enabled="true"/><br />
