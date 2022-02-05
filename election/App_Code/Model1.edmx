@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FUPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ELECTION_CAP_VOTE">
+          <Key>
+            <PropertyRef Name="ID_VOTE" />
+          </Key>
+          <Property Name="ID_VOTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_ELECTEUR" Type="int" Nullable="false" />
+          <Property Name="ID_CANDIDAT" Type="int" Nullable="false" />
+          <Property Name="ID_CORPS_GROUPE" Type="int" Nullable="false" />
+          <Property Name="DATE_VOTE" Type="datetime" />
+          <Property Name="IP_ENSEIGNANT" Type="nvarchar" MaxLength="50" />
+          <Property Name="PAYS" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="FUPModelStoreContainer">
+          <EntitySet Name="ELECTION_CAP_VOTE" EntityType="Self.ELECTION_CAP_VOTE" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FUPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ELECTION_CAP_VOTE">
+          <Key>
+            <PropertyRef Name="ID_VOTE" />
+          </Key>
+          <Property Name="ID_VOTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_ELECTEUR" Type="Int32" Nullable="false" />
+          <Property Name="ID_CANDIDAT" Type="Int32" Nullable="false" />
+          <Property Name="ID_CORPS_GROUPE" Type="Int32" Nullable="false" />
+          <Property Name="DATE_VOTE" Type="DateTime" Precision="3" />
+          <Property Name="IP_ENSEIGNANT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PAYS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="FUPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ELECTION_CAP_VOTE" EntityType="Self.ELECTION_CAP_VOTE" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FUPModelStoreContainer" CdmEntityContainer="FUPEntities">
+          <EntitySetMapping Name="ELECTION_CAP_VOTE">
+            <EntityTypeMapping TypeName="FUPModel.ELECTION_CAP_VOTE">
+              <MappingFragment StoreEntitySet="ELECTION_CAP_VOTE">
+                <ScalarProperty Name="ID_VOTE" ColumnName="ID_VOTE" />
+                <ScalarProperty Name="ID_ELECTEUR" ColumnName="ID_ELECTEUR" />
+                <ScalarProperty Name="ID_CANDIDAT" ColumnName="ID_CANDIDAT" />
+                <ScalarProperty Name="ID_CORPS_GROUPE" ColumnName="ID_CORPS_GROUPE" />
+                <ScalarProperty Name="DATE_VOTE" ColumnName="DATE_VOTE" />
+                <ScalarProperty Name="IP_ENSEIGNANT" ColumnName="IP_ENSEIGNANT" />
+                <ScalarProperty Name="PAYS" ColumnName="PAYS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -10,7 +10,7 @@ Partial Class elections_Colleges
         con.ConnectionString = "Data Source=.;Initial Catalog=FUP;Integrated Security=True"
         con.Open()
 
-        Dim SQL_ADD_CORPS_GROUPES As SqlCommand = New SqlCommand("INSERT INTO CORPS_GROUPES(LIBELLE_CORPS_GROUPES)VALUES(@LIBELLE_CORPS_GROUPES)", con)
+        Dim SQL_ADD_CORPS_GROUPES As SqlCommand = New SqlCommand("INSERT INTO ELECTION_CAP_CORPS_GROUPES(LIBELLE_CORPS_GROUPES)VALUES(@LIBELLE_CORPS_GROUPES)", con)
         SQL_ADD_CORPS_GROUPES.Parameters.AddWithValue("@LIBELLE_CORPS_GROUPES", libelle_corps_groupes)
         SQL_ADD_CORPS_GROUPES.ExecuteNonQuery()
         Response.Redirect(HttpContext.Current.Request.Url.ToString(), True)

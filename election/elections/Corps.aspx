@@ -22,7 +22,7 @@
     </div>
 
      
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT ELECTION_CAP_CORPS.ID_CORPS, ELECTION_CAP_CORPS.LIBELLE_CORPS, ELECTION_CAP_CORPS.HIERARCHIE, CORPS_GROUPES.LIBELLE_CORPS_GROUPES FROM ELECTION_CAP_CORPS INNER JOIN CORPS_GROUPES ON ELECTION_CAP_CORPS.ID_CORPS_GROUPE = CORPS_GROUPES.ID_CORPS_GROUPES"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT ELECTION_CAP_CORPS.ID_CORPS, ELECTION_CAP_CORPS.LIBELLE_CORPS, ELECTION_CAP_CORPS.HIERARCHIE, ELECTION_CAP_CORPS_GROUPES.LIBELLE_CORPS_GROUPES FROM ELECTION_CAP_CORPS INNER JOIN ELECTION_CAP_CORPS_GROUPES ON ELECTION_CAP_CORPS.ID_CORPS_GROUPE = ELECTION_CAP_CORPS_GROUPES.ID_CORPS_GROUPES"></asp:SqlDataSource>
 
 
      
@@ -36,10 +36,6 @@
             </button>
             </div>
 
-            <asp:Button ID="BtAnnulerCloture" CssClass="btn btn-primary" runat="server" Text="Voter" />
-                                 <asp:Panel ID="PaneAnnulationCloture" runat="server">
-                                    <asp:Button ID="Button1" runat="server" Font-Bold="True" ForeColor="#FF3300" Text="Confirmer" CommandName="bnt_voter" CommandArgument='<%# Eval("ID_SYNDICAT") & " " & Eval("ID_CORPS_GROUPES") %>'/>
-                                 </asp:Panel>
 
             <div class="modal-body">
                 <div class="form-group">
@@ -77,7 +73,7 @@
                  <div class="form-group">
                     <asp:Label runat="server" AssociatedControlID="DLL_CORPS_GROUPES">CORPS GROUPES *</asp:Label>
                     <asp:DROPDOWNLIST runat="server" ID="DLL_CORPS_GROUPES" DataSourceID="SqlDLL_CORPS_GROUPES" CssClass="form-control" DataTextField="LIBELLE_CORPS_GROUPES" DataValueField="ID_CORPS_GROUPES"></asp:DROPDOWNLIST>
-                    <asp:SqlDataSource ID="SqlDLL_CORPS_GROUPES" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT NULL AS ID_CORPS_GROUPES, '--------' AS LIBELLE_CORPS_GROUPES UNION SELECT ID_CORPS_GROUPES, LIBELLE_CORPS_GROUPES FROM CORPS_GROUPES ORDER BY LIBELLE_CORPS_GROUPES"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDLL_CORPS_GROUPES" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT NULL AS ID_CORPS_GROUPES, '--------' AS LIBELLE_CORPS_GROUPES UNION SELECT ID_CORPS_GROUPES, LIBELLE_CORPS_GROUPES FROM ELECTION_CAP_CORPS_GROUPES ORDER BY LIBELLE_CORPS_GROUPES"></asp:SqlDataSource>
                  </div>
 
 

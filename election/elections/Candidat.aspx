@@ -54,7 +54,7 @@
                 <div class="form-group">
                     <asp:Label runat="server" AssociatedControlID="DLL_CORPS_GROUPES">CORPS GROUPES</asp:Label>
                     <asp:DROPDOWNLIST runat="server" ID="DLL_CORPS_GROUPES" DataSourceID="SqlDLL_CORPS_GROUPES" CssClass="form-control" DataTextField="LIBELLE_CORPS_GROUPES" DataValueField="ID_CORPS_GROUPES"></asp:DROPDOWNLIST>
-                    <asp:SqlDataSource ID="SqlDLL_CORPS_GROUPES" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT NULL AS ID_CORPS_GROUPES, '--------' AS LIBELLE_CORPS_GROUPES UNION SELECT ID_CORPS_GROUPES, LIBELLE_CORPS_GROUPES FROM CORPS_GROUPES ORDER BY LIBELLE_CORPS_GROUPES"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDLL_CORPS_GROUPES" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT NULL AS ID_CORPS_GROUPES, '--------' AS LIBELLE_CORPS_GROUPES UNION SELECT ID_CORPS_GROUPES, LIBELLE_CORPS_GROUPES FROM ELECTION_CAP_CORPS_GROUPES ORDER BY LIBELLE_CORPS_GROUPES"></asp:SqlDataSource>
                  </div>
 
                 <div class="form-group">
