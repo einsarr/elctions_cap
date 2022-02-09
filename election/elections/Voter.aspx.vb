@@ -1,11 +1,11 @@
 ﻿
 Partial Class elections_Voter
     Inherits System.Web.UI.Page
-
+    Private election As New ElectionCAPCD
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        'If Session("connexion_ok") = 0 Then
-        '    Response.Redirect("~/Account/connexion.aspx")
-        'End If
+        If election.PeriodeOuvertureScrutin() = False Then
+            Response.Redirect("~/Default.aspx")
+        End If
 
     End Sub
 
@@ -25,6 +25,9 @@ Partial Class elections_Voter
     End Sub
     Protected Sub ListView1_ItemCommand(sender As Object, e As ListViewCommandEventArgs) Handles ListView1.ItemCommand
         Label1.Text = e.CommandArgument.ToString
-        Response.Redirect(String.Format("Detail.aspx?ID={0}", Label1.Text))
+        Response.Redirect(String.Format("DetailVote.aspx?confirm={0}", Label1.Text))
+    End Sub
+    Protected Sub ListView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListView1.SelectedIndexChanged
+
     End Sub
 End Class

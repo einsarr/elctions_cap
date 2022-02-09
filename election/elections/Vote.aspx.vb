@@ -6,6 +6,18 @@ Partial Class elections_Vote
     Dim outil As New Outils
     Dim fonctions As New ElectionsFonction
 
+    Private Sub Button2_Click(sender As System.Object, e As System.EventArgs) Handles Button2.Click
+        TextBox2.Text = CalculAge(TextBox1.Text)
+    End Sub
+    Public Shared Function CalculAge(ByVal birthdate As DateTime) As Integer
+        Dim years As Integer = DateTime.Now.Year - birthdate.Year
+        If (DateTime.Now.Month < birthdate.Month Or (DateTime.Now.Month = birthdate.Month And DateTime.Now.Day < birthdate.Day)) Then
+            years = years - 1
+        End If
+        Return years
+    End Function
+
+
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         ' Vérifier si l'agent à déjà voté
         'If fonctions.EnsDejaVote(11) = True Then

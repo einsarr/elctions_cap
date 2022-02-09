@@ -37,7 +37,7 @@
                     <br><br>
 <div class="text-center" style="border: 1px solid #ff7e7e;padding: 14px;background: #ffdede;">
     <p style="font-weight: bold;color: red;">
-      <marquee><i class="fa fa-info-circle"></i> Appel à candidatures</marquee><br /> Recrutement d'instituteurs sénégalais pour les écoles franco-sénégalaises de Dakar.
+      <i class="fa fa-info-circle"></i> Appel à candidatures<br /> Recrutement d'instituteurs sénégalais pour les écoles franco-sénégalaises de Dakar.
     </p>
     <a href="https://jobs.education.sn/" target="_blank"  class="btn btn-sm btn-danger" style="width:146px;">
       <i class="fa fa-search"></i> Voir l'offre

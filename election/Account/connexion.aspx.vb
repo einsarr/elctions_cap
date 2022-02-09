@@ -2,17 +2,18 @@
 Imports System.Data
 Partial Class _Connect
     Inherits System.Web.UI.Page
-
+    Private election As New ElectionCAPCD
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         Try
-            'BD.rempli = False
             TXT_Login.Focus()
 
         Catch ex As Exception
 
         End Try
         If Session("connexion_ok") = 1 Then
-            Response.Redirect("~/voeux/listemvmt.aspx")
+            If Session("a_voter") = 0 Then
+                Response.Redirect("~/elections/Voter.aspx")
+            End If
         End If
     End Sub
 
@@ -35,19 +36,13 @@ Partial Class _Connect
         Catch ex As Exception
             ex = Nothing
         End Try
-
-
     End Sub
 
     Protected Sub BT_Login_Click(sender As Object, e As EventArgs) Handles BT_Login.Click
-
         Dim outils As New Outils
         Dim matEns As String = TXT_Login.Text
         Dim ipAdresse As String = outils.ipAdr()
         Dim navigateur As String = ""
-
-        'On passe en parametre l'adresse ip du visteur pour trouver son pays
-        'C'est cette meme fonction qui appelle la fonction qui fait du ipNumber 
         Dim paysUser As String = outils.Pays(ipAdresse)
 
         Dim statut As Integer = 0
@@ -61,70 +56,77 @@ Partial Class _Connect
 
             Passwcrypt = Cryp.AES_Encrypt(TXT_Password.Text, "AxZD1&&é&é%é&&xDSDZA124_312143896")
 
-
             Dim sqlEns As New SqlCommand("SELECT " _
-            & " ENSEIGNANT.MATRICULE_ENSEIGNANT, ENSEIGNANT.IDENTIFIANT_ENSEIGNANT, ENSEIGNANT.CODE_ETABLISSEMENT,  ENSEIGNANT.NOM_ENSEIGNANT, ENSEIGNANT.PASSWORD_VALIDE," _
-            & " ENSEIGNANT.PRENOMS_ENSEIGNANT, ENSEIGNANT.CODE_CORPS, ENSEIGNANT.CODE_FONCTION,  ENSEIGNANT.CODE_SPECIALITE, ENSEIGNANT.PASSWORD_ENSEIGNANT " _
-    & " FROM         ENSEIGNANT " _
-    & " WHERE     (ENSEIGNANT.MATRICULE_ENSEIGNANT = '" & TXT_Login.Text & "') AND (ENSEIGNANT.PASSWORD_ENSEIGNANT = '" & Passwcrypt & "')")
-
+            & " CAP.MATRICULE_ELECTEUR, CAP.IDENTIFIANT_ELECTEUR,CAP.NOM_ELECTEUR, CAP.PASSWORD_VALIDE," _
+            & " CAP.DATE_NAISSANCE_ELECTEUR,CAP.PRENOM_ELECTEUR,CAP.ID_CORPS,CAP.ID_CLASSE,CAP.ID_GRADE,CAP.PASSWORD_ELECTEUR " _
+    & " FROM ELECTION_CAP_ELECTEUR AS CAP " _
+    & " WHERE(CAP.MATRICULE_ELECTEUR = '" & TXT_Login.Text & "') AND (CAP.PASSWORD_ELECTEUR = '" & Passwcrypt & "')")
 
             Dim ResultSetEns As DataSet
-            'Dim con As New Connect
 
             ResultSetEns = outils.RunQuery(sqlEns)
 
             If ResultSetEns.Tables(0).Rows.Count > 0 Then
+
                 'On initialise le statut de log_connexion_mirador à 1 car connexion
                 statut = 1
-                Dim sqlLogconnexion As New SqlCommand("INSERT INTO ADM_LOG_CONNEXION_MIRADOR (MATRICULE_ENSEIGNANT, PAYS_CONNEXION, ADRESSE_IP, NAVIGATEUR, STATUT) VALUES('" & matEns & "','" & paysUser & "','" & ipAdresse & "','" & navigateur & "'," & statut & ")")
+                Dim sqlLogconnexion As New SqlCommand("INSERT INTO ELECTION_CAP_LOGS(MATRICULE, ADRESSE_IP, NAVIGATEUR,PAYS_CONNEXION) VALUES('" & Session("matricule_elect") & "' ,'" & ipAdresse & "','" & navigateur & "','" & paysUser & "')")
                 Dim ResultInsLogCon As DataSet
                 ResultInsLogCon = outils.RunQuery(sqlLogconnexion)
 
                 Dim rowEns As DataRow
                 For Each rowEns In ResultSetEns.Tables(0).Rows
                     Try
-                        Session("connexion_sso") = 0
-                        Session("id_ens") = rowEns("identifiant_enseignant").ToString
-                        Session("t_matricule") = rowEns("matricule_enseignant").ToString
-                        Session("t_nom") = rowEns("nom_enseignant").ToString
-                        Session("t_prenoms") = rowEns("prenoms_enseignant").ToString
-                        Session("c_spc") = rowEns("code_specialite").ToString
-                        Session("c_corps") = rowEns("code_corps").ToString
-                        Session("c_etab") = rowEns("code_etablissement").ToString
-                        Session("c_fct") = rowEns("code_fonction").ToString
-                        'Session("c_mvt_ens") = rowEns("code_mouvement").ToString
+                        Session("id_elect") = rowEns("IDENTIFIANT_ELECTEUR")
+                        Session("matricule_elect") = rowEns("MATRICULE_ELECTEUR").ToString
+                        Session("nom_elect") = rowEns("NOM_ELECTEUR").ToString
+                        Session("classe_elect") = rowEns("ID_CLASSE").ToString
+                        Session("prenom_elect") = rowEns("PRENOM_ELECTEUR").ToString
+                        Session("grade_elect") = rowEns("ID_GRADE").ToString
+                        Session("corps_elect") = rowEns("ID_CORPS").ToString
+                        Session("date_naiss_elect") = rowEns("DATE_NAISSANCE_ELECTEUR")
                         Session("pass_valid") = rowEns("PASSWORD_VALIDE").ToString
+                        Session("a_voter") = rowEns("A_VOTE").ToString
                         Session("passw") = TXT_Password.Text
-
-
                     Catch ex As Exception
 
                     End Try
                 Next
-                'initialiserChamps()
-
-
-                'AfficherMessage(Session("pass_valid").ToString)
-                'AfficherMessage(Session("pass_valid") = 1)
 
                 If Session("pass_valid") = 1 Then
-                    'AfficherMessage("OK")
-                    Session("connexion_ok") = 1
+                    If election.PeriodeOuvertureScrutin() = True Then
+                        If election.CalculAge(Session("date_naiss_elect")) <= 60 Then
+                            If election.ADEJAVOTE(Session("id_elect")) = False Then
+                                If election.CompteBloque(Session("id_elect")) = False Then
+                                    Session("connexion_ok") = 1
+                                    Server.Transfer("~/elections/Voter.aspx")
+                                Else
+                                    AfficherMessage("Compte bloqué - Veuillez saisir l'administrateur")
+                                End If
+                            Else
+                                AfficherMessage("Déjà voté")
+                            End If
+                        Else
+                            AfficherMessage("L'âge d'éligibilité dépassé")
+                        End If
+                    Else
+                        AfficherMessage("Scrutin fermé")
+                    End If
 
-                    Server.Transfer("~/voeux/listemvmt.aspx")
                 Else
-                    'AfficherMessage("NOK A valider")
-
                     Server.Transfer("~/Account/validpassw.aspx")
                 End If
 
             Else
+
                 'On initialise le statut de log_connexion_mirador à 0 car echec connexion
-                statut = 0
-                Dim sqlLogconnexion As New SqlCommand("INSERT INTO ADM_LOG_CONNEXION_MIRADOR (MATRICULE_ENSEIGNANT,  PAYS_CONNEXION, ADRESSE_IP, NAVIGATEUR, STATUT) VALUES('" & matEns & "' ,'" & paysUser & "','" & ipAdresse & "','" & navigateur & "'," & statut & ")")
+                'statut = 0
+                Dim sqlLogconnexion As New SqlCommand("INSERT INTO ELECTION_CAP_LOGS(MATRICULE, ADRESSE_IP, NAVIGATEUR,PAYS_CONNEXION) VALUES('" & TXT_Login.Text & "' ,'" & ipAdresse & "','" & navigateur & "','" & paysUser & "')")
                 Dim ResultInsLogCon As DataSet
                 ResultInsLogCon = outils.RunQuery(sqlLogconnexion)
+
+                Dim sqlEtat As New SqlCommand("UPDATE ELECTION_CAP_ELECTEUR SET TENTATIVE=TENTATIVE+1 WHERE MATRICULE_ELECTEUR='" & TXT_Login.Text & "'")
+                outils.RunQuery(sqlEtat)
 
                 Session("connexion_ok") = 0
 
