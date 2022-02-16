@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Data
-Partial Class _Connect
+Partial Class elections_cap_cd_Default
     Inherits System.Web.UI.Page
     Private election As New ElectionCAPCD
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
@@ -45,7 +45,6 @@ Partial Class _Connect
         Dim navigateur As String = ""
         Dim paysUser As String = outils.Pays(ipAdresse)
 
-
         Dim statut As Integer = 0
         With Request.Browser
             navigateur = .Browser & vbCrLf
@@ -59,7 +58,7 @@ Partial Class _Connect
 
             Dim sqlEns As New SqlCommand("SELECT " _
             & " CAP.MATRICULE_ELECTEUR, CAP.IDENTIFIANT_ELECTEUR,CAP.NOM_ELECTEUR, CAP.PASSWORD_VALIDE," _
-            & " CAP.DATE_NAISSANCE_ELECTEUR,CAP.PRENOM_ELECTEUR,CAP.ID_CORPS,CAP.ID_CLASSE,CAP.PASSWORD_ELECTEUR " _
+            & " CAP.DATE_NAISSANCE_ELECTEUR,CAP.PRENOM_ELECTEUR,CAP.ID_CORPS,CAP.ID_CLASSE,CAP.ID_GRADE,CAP.PASSWORD_ELECTEUR " _
     & " FROM ELECTION_CAP_ELECTEUR AS CAP " _
     & " WHERE(CAP.MATRICULE_ELECTEUR = '" & TXT_Login.Text & "') AND (CAP.PASSWORD_ELECTEUR = '" & Passwcrypt & "')")
 
@@ -68,6 +67,7 @@ Partial Class _Connect
             ResultSetEns = outils.RunQuery(sqlEns)
 
             If ResultSetEns.Tables(0).Rows.Count > 0 Then
+
                 'On initialise le statut de log_connexion_mirador à 1 car connexion
                 statut = 1
                 Dim sqlLogconnexion As New SqlCommand("INSERT INTO ELECTION_CAP_LOGS(MATRICULE, ADRESSE_IP, NAVIGATEUR,PAYS_CONNEXION) VALUES('" & Session("matricule_elect") & "' ,'" & ipAdresse & "','" & navigateur & "','" & paysUser & "')")
@@ -82,7 +82,7 @@ Partial Class _Connect
                         Session("nom_elect") = rowEns("NOM_ELECTEUR").ToString
                         Session("classe_elect") = rowEns("ID_CLASSE").ToString
                         Session("prenom_elect") = rowEns("PRENOM_ELECTEUR").ToString
-                        'Session("grade_elect") = rowEns("ID_GRADE").ToString
+                        Session("grade_elect") = rowEns("ID_GRADE").ToString
                         Session("corps_elect") = rowEns("ID_CORPS").ToString
                         Session("date_naiss_elect") = rowEns("DATE_NAISSANCE_ELECTEUR")
                         Session("pass_valid") = rowEns("PASSWORD_VALIDE").ToString
@@ -148,8 +148,6 @@ Partial Class _Connect
     Protected Sub DropDownTotalInscrits_DataBound(sender As Object, e As EventArgs) Handles DropDownTotalInscrits.DataBound
         Me.LabelNbreInscrits.Text = Me.DropDownTotalInscrits.SelectedValue.ToString
     End Sub
-
-
 
 
 End Class

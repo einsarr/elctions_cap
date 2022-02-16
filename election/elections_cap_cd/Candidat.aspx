@@ -16,7 +16,7 @@
                     <%--<asp:BoundField DataField="PHOTO_SG" HeaderText="PHOTO_SG" SortExpression="PHOTO_SG" />--%>
                 
                     <asp:BoundField DataField="ID_CANDIDAT" HeaderText="ID_CANDIDAT" InsertVisible="False" ReadOnly="True" SortExpression="ID_CANDIDAT" />
-                    <asp:BoundField DataField="LIBELLE_CORPS_GROUPES" HeaderText="LIBELLE_CORPS_GROUPES" SortExpression="LIBELLE_CORPS_GROUPES" />
+                    <asp:BoundField DataField="LIBELLE_CORPS_GROUPE" HeaderText="LIBELLE_CORPS_GROUPE" SortExpression="LIBELLE_CORPS_GROUPE" />
                     <asp:BoundField DataField="CODE_SYNDICAT" HeaderText="CODE_SYNDICAT" SortExpression="CODE_SYNDICAT" />
                     <%--<asp:BoundField DataField="PHOTO_SG" HeaderText="PHOTO_SG" SortExpression="PHOTO_SG" />--%>
                     <asp:BoundField DataField="LIBELLE_CLASSE" HeaderText="LIBELLE_CLASSE" SortExpression="LIBELLE_CLASSE" />
@@ -32,7 +32,7 @@
     </div>
 
      
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT ELECTION_CAP_CANDIDAT.ID_CANDIDAT, ELECTION_CAP_CORPS_GROUPES.LIBELLE_CORPS_GROUPES, ELECTION_CAP_SYNDICAT.PHOTO_SG, ELECTION_CAP_SYNDICAT.CODE_SYNDICAT, ELECTION_CAP_CLASSE.LIBELLE_CLASSE FROM ELECTION_CAP_CANDIDAT INNER JOIN ELECTION_CAP_SYNDICAT ON ELECTION_CAP_CANDIDAT.ID_SYNDICAT = ELECTION_CAP_SYNDICAT.ID_SYNDICAT INNER JOIN ELECTION_CAP_CORPS_GROUPES ON ELECTION_CAP_CANDIDAT.ID_CORPS_GROUPES = ELECTION_CAP_CORPS_GROUPES.ID_CORPS_GROUPES LEFT JOIN ELECTION_CAP_CLASSE ON ELECTION_CAP_CANDIDAT.ID_CLASSE = ELECTION_CAP_CLASSE.ID_CLASSE"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT ELECTION_CAP_CANDIDAT.ID_CANDIDAT, ELECTION_CAP_CORPS_GROUPE.LIBELLE_CORPS_GROUPE, ELECTION_CAP_SYNDICAT.PHOTO_SG, ELECTION_CAP_SYNDICAT.CODE_SYNDICAT, ELECTION_CAP_CLASSE.LIBELLE_CLASSE FROM ELECTION_CAP_CANDIDAT INNER JOIN ELECTION_CAP_SYNDICAT ON ELECTION_CAP_CANDIDAT.ID_SYNDICAT = ELECTION_CAP_SYNDICAT.ID_SYNDICAT INNER JOIN ELECTION_CAP_CORPS_GROUPE ON ELECTION_CAP_CANDIDAT.ID_CORPS_GROUPE = ELECTION_CAP_CORPS_GROUPE.ID_CORPS_GROUPE LEFT JOIN ELECTION_CAP_CLASSE ON ELECTION_CAP_CANDIDAT.ID_CLASSE = ELECTION_CAP_CLASSE.ID_CLASSE"></asp:SqlDataSource>
 
     <div class="modal fade" id="formulaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
@@ -52,9 +52,9 @@
                  </div>
 
                 <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="DLL_CORPS_GROUPES">CORPS GROUPES</asp:Label>
-                    <asp:DROPDOWNLIST runat="server" ID="DLL_CORPS_GROUPES" DataSourceID="SqlDLL_CORPS_GROUPES" CssClass="form-control" DataTextField="LIBELLE_CORPS_GROUPES" DataValueField="ID_CORPS_GROUPES"></asp:DROPDOWNLIST>
-                    <asp:SqlDataSource ID="SqlDLL_CORPS_GROUPES" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT NULL AS ID_CORPS_GROUPES, '--------' AS LIBELLE_CORPS_GROUPES UNION SELECT ID_CORPS_GROUPES, LIBELLE_CORPS_GROUPES FROM ELECTION_CAP_CORPS_GROUPES ORDER BY LIBELLE_CORPS_GROUPES"></asp:SqlDataSource>
+                    <asp:Label runat="server" AssociatedControlID="DLL_CORPS_GROUPE">CORPS GROUPES</asp:Label>
+                    <asp:DROPDOWNLIST runat="server" ID="DLL_CORPS_GROUPE" DataSourceID="SqlDLL_CORPS_GROUPE" CssClass="form-control" DataTextField="LIBELLE_CORPS_GROUPE" DataValueField="ID_CORPS_GROUPE"></asp:DROPDOWNLIST>
+                    <asp:SqlDataSource ID="SqlDLL_CORPS_GROUPE" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT NULL AS ID_CORPS_GROUPE, '--------' AS LIBELLE_CORPS_GROUPE UNION SELECT ID_CORPS_GROUPE, LIBELLE_CORPS_GROUPE FROM ELECTION_CAP_CORPS_GROUPE ORDER BY LIBELLE_CORPS_GROUPE"></asp:SqlDataSource>
                  </div>
 
                 <div class="form-group">
@@ -76,9 +76,3 @@
     </div>
 
 </asp:Content>
-
-
-
-
-
-

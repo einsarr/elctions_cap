@@ -8,7 +8,7 @@ Partial Class elections_Colleges
         Dim cmd As New SqlCommand
         Dim LIBELLE_CORPS As String = TXT_LIBELLE_CORPS.Text
         Dim HIERARCHIE As String = DLL_HIERARCHIE.SelectedValue.ToString
-        Dim ID_CORPS_GROUPE As Integer = CInt(DLL_CORPS_GROUPES.SelectedValue.ToString)
+        Dim ID_CORPS_GROUPE As Integer = CInt(DLL_CORPS_GROUPE.SelectedValue.ToString)
         con.ConnectionString = "Data Source=.;Initial Catalog=FUP;Integrated Security=True"
         con.Open()
 

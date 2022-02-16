@@ -9,7 +9,7 @@ Partial Class elections_Syndicat
         Dim photosg As String
         System.Threading.Thread.Sleep(5000)
         Dim connectionString As String = ConfigurationManager.ConnectionStrings("FUPConnectionString").ConnectionString
-        Dim folderpath As String = Server.MapPath("~/elections/images/")
+        Dim folderpath As String = Server.MapPath("~/elections_cap_cd/images/")
         logo = TXT_CODE_SYNDICAT.Text & "_logo" & System.IO.Path.GetExtension(IMG_LOGO_SYNDICAT.FileName)
         photosg = TXT_CODE_SYNDICAT.Text & "_photosg" & System.IO.Path.GetExtension(IMG_PHOTO_SG_SYNDICAT.FileName)
         If Me.IMG_LOGO_SYNDICAT.HasFile Then

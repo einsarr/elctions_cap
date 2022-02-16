@@ -2,8 +2,14 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <br />
+    <asp:button id="btnCancel" CssClass="btn btn-danger" runat="server" text="Cancel" OnClientClick="JavaScript:window.history.back(1); return false;" /> 
+    
     <br />
-    <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataKeyNames="ID_CANDIDAT_LISTE" DataSourceID="SqlDataSource2">
+    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+
+
+    <br />
+    <asp:GridView ID="Gv_lstCandidats" runat="server" AutoGenerateColumns="False" DataKeyNames="ID_CANDIDAT_LISTE" CssClass="table table-bordered table-striped">
         <Columns>
             <asp:BoundField DataField="ID_CANDIDAT_LISTE" HeaderText="ID_CANDIDAT_LISTE" InsertVisible="False" ReadOnly="True" SortExpression="ID_CANDIDAT_LISTE" />
             <asp:BoundField DataField="ID_ELECTEUR" HeaderText="ID_ELECTEUR" SortExpression="ID_ELECTEUR" />
@@ -13,14 +19,13 @@
             <asp:BoundField DataField="NOM_ELECTEUR" HeaderText="NOM_ELECTEUR" SortExpression="NOM_ELECTEUR" />
         </Columns>
     </asp:GridView>
-    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT EC.ID_CANDIDAT_LISTE, EC.ID_ELECTEUR, EC.ID_CANDIDAT, EC.RANG, E.PRENOM_ELECTEUR, E.NOM_ELECTEUR FROM ELECTION_CAP_CANDIDAT_LISTE AS EC INNER JOIN ELECTION_CAP_ELECTEUR AS E ON E.IDENTIFIANT_ELECTEUR = EC.ID_ELECTEUR INNER JOIN ELECTION_CAP_CANDIDAT AS C ON C.ID_CANDIDAT = EC.ID_CANDIDAT WHERE (C.ID_CANDIDAT = @ID_CANDIDAT) ORDER BY EC.RANG">
+    <%--<asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT EC.ID_CANDIDAT_LISTE, EC.ID_ELECTEUR, EC.ID_CANDIDAT, EC.RANG, E.PRENOM_ELECTEUR, E.NOM_ELECTEUR FROM ELECTION_CAP_CANDIDAT_LISTE AS EC INNER JOIN ELECTION_CAP_ELECTEUR AS E ON E.IDENTIFIANT_ELECTEUR = EC.ID_ELECTEUR INNER JOIN ELECTION_CAP_CANDIDAT AS C ON C.ID_CANDIDAT = EC.ID_CANDIDAT WHERE (C.ID_CANDIDAT = @ID_CANDIDAT) ORDER BY EC.RANG">
         <SelectParameters>
-            <asp:QueryStringParameter Name="ID_CANDIDAT" QueryStringField="confirm" />
+            <asp:QueryStringParameter  Name="ID_CANDIDAT" QueryStringField="confirm" />
         </SelectParameters>
-    </asp:SqlDataSource>
+    </asp:SqlDataSource>--%>
     <br />
-    <br />
-    <asp:DetailsView ID="DetailsView1" runat="server" Height="50px" Width="125px" AutoGenerateRows="False" DataKeyNames="ID_CANDIDAT" DataSourceID="SqlDataSource1">
+    <asp:DetailsView ID="Dtv_CandidatChoisi" runat="server" Height="50px" Width="125px" AutoGenerateRows="False" DataKeyNames="ID_CANDIDAT" CssClass="table table-bordered table-striped">
         <Fields>
             <asp:BoundField DataField="ID_CANDIDAT" HeaderText="ID_CANDIDAT" InsertVisible="False" ReadOnly="True" SortExpression="ID_CANDIDAT" />
             <asp:BoundField DataField="ID_SYNDICAT" HeaderText="ID_SYNDICAT" SortExpression="ID_SYNDICAT" />
@@ -28,26 +33,39 @@
             <asp:BoundField DataField="ID_CLASSE" HeaderText="ID_CLASSE" SortExpression="ID_CLASSE" />
         </Fields>
     </asp:DetailsView>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT * FROM [ELECTION_CAP_CANDIDAT] WHERE ([ID_CANDIDAT] = @ID_CANDIDAT)">
+    <%--<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT * FROM [ELECTION_CAP_CANDIDAT] WHERE ([ID_CANDIDAT] = @ID_CANDIDAT)">
         <SelectParameters>
             <asp:QueryStringParameter Name="ID_CANDIDAT" QueryStringField="confirm" Type="Int32" />
         </SelectParameters>
-    </asp:SqlDataSource>
+    </asp:SqlDataSource>--%>
 
-    <br />
-    <br />
 
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID_CANDIDAT" DataSourceID="SqlDataSource1">
+    <%--<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID_CANDIDAT">
         <Columns>
             <asp:BoundField DataField="ID_CANDIDAT" HeaderText="ID_CANDIDAT" InsertVisible="False" ReadOnly="True" SortExpression="ID_CANDIDAT" />
             <asp:BoundField DataField="ID_SYNDICAT" HeaderText="ID_SYNDICAT" SortExpression="ID_SYNDICAT" />
             <asp:BoundField DataField="ID_CORPS_GROUPE" HeaderText="ID_CORPS_GROUPE" SortExpression="ID_CORPS_GROUPE" />
             <asp:BoundField DataField="ID_CLASSE" HeaderText="ID_CLASSE" SortExpression="ID_CLASSE" />
         </Columns>
-    </asp:GridView>
+    </asp:GridView>--%>
     <br />
 
-    <asp:Button ID="BtnConfirmVote" runat="server" Text="Valider mon choix" />
+    <asp:Button ID="BtnConfirmVote" runat="server" Text="Valider mon choix" CssClass="btn-xs btn-primary"/>
+    
+    <asp:Panel ID="PanelConfirmVote" runat="server">
+        <table>
+            <tr>
+                <td>Valider le vote avec le bouton [<strong>OK</strong>]. Sinon cliquer sur [<strong>Annuler</strong>] </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="bt_poursuivreVote" CssClass="btn-xs btn-success btn-xs" runat="server" Text="OK" />
+                    <asp:Button ID="bt_annulerVote" CssClass="btn-xs btn-danger btn-xs" runat="server" Text="Annuler" />
+                </td>
+            </tr>
+        </table>
+
+    </asp:Panel>
 
 
 

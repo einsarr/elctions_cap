@@ -1,24 +1,36 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Site.master" AutoEventWireup="false" CodeFile="Voter.aspx.vb" Inherits="elections_Voter" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+    
+    <br />
+    <br />
+    <asp:DetailsView ID="DetailsView1" CssClass="table table-bordered table-striped" runat="server" Height="50px" Width="125px" DataSourceID="SqlDataSource2"></asp:DetailsView>
+    
+    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT ELECTION_CAP_ELECTEUR.MATRICULE_ELECTEUR, ELECTION_CAP_ELECTEUR.PRENOM_ELECTEUR, ELECTION_CAP_ELECTEUR.NOM_ELECTEUR, ELECTION_CAP_CLASSE.LIBELLE_CLASSE, ELECTION_CAP_CORPS.LIBELLE_CORPS, ELECTION_CAP_ELECTEUR.IDENTIFIANT_ELECTEUR FROM ELECTION_CAP_ELECTEUR INNER JOIN ELECTION_CAP_CORPS ON ELECTION_CAP_ELECTEUR.ID_CORPS = ELECTION_CAP_CORPS.ID_CORPS INNER JOIN ELECTION_CAP_CLASSE ON ELECTION_CAP_ELECTEUR.ID_CLASSE = ELECTION_CAP_CLASSE.ID_CLASSE WHERE ELECTION_CAP_ELECTEUR.IDENTIFIANT_ELECTEUR =@IDENTIFIANT_ELECTEUR">
+        <SelectParameters>
+            <asp:SessionParameter Name="IDENTIFIANT_ELECTEUR" SessionField="id_elect" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+    
     <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
     <br />
     <br />
     <asp:ListView ID="ListView1" runat="server" DataKeyNames="ID_CANDIDAT" DataSourceID="SqlDataSource1" GroupItemCount="3">
         <AlternatingItemTemplate>
-            <td runat="server" style="">ID_CANDIDAT:
-                <asp:Label ID="ID_CANDIDATLabel" runat="server" Text='<%# Eval("ID_CANDIDAT") %>' />
-                <br />LIBELLE_SYNDICAT:
-                <asp:Label ID="LIBELLE_SYNDICATLabel" runat="server" Text='<%# Eval("LIBELLE_SYNDICAT") %>' />
-                <br />PRENOM_NOM_SG:
-                <asp:Label ID="PRENOM_NOM_SGLabel" runat="server" Text='<%# Eval("PRENOM_NOM_SG") %>' />
-                <br />PHOTO_SG:
-                <asp:Image ID="PHOTO_SGLabel" Width="25%" runat="server" ImageUrl='<%# Eval("PHOTO_SG", "~/elections/images/{0}") %>' AlternateText="404" Visible="true" />
-                <br />
-                <asp:Button ID="Button1" CommandArgument='<%# Eval("ID_CANDIDAT")%>' OnClick="Consulter" runat="server" Text="Button" />
-                <br />
-                <asp:Button ID="Button2" runat="server" Text="confirm" />
-            </td>
+                <td runat="server" style="">
+                    <asp:Label ID="ID_CANDIDATLabel" runat="server" Width="100%" Text='<%# Eval("ID_CANDIDAT") %>' Visible="false"/>
+                    <%--<br />LIBELLE_SYNDICAT:
+                    <asp:Label ID="LIBELLE_SYNDICATLabel" runat="server" Text='<%# Eval("LIBELLE_SYNDICAT") %>' />--%>
+                    <br />
+                    <asp:Label ID="Label2" CssClass="btn btn-success" Width="100%" runat="server" Text='<%# Eval("CODE_SYNDICAT") %>' />
+                    <%--<br />PRENOM_NOM_SG:
+                    <asp:Label ID="PRENOM_NOM_SGLabel" runat="server" Text='<%# Eval("PRENOM_NOM_SG") %>' />
+                    <br />PHOTO_SG:
+                    <asp:Image ID="PHOTO_SGLabel" Width="25%" runat="server"  ImageUrl='<%# Eval("PHOTO_SG", "~/elections/images/{0}") %>' AlternateText="404" Visible="true" />--%>
+                    <br />
+                    <asp:Button ID="Button1" CommandArgument='<%# Eval("ID_CANDIDAT")%>'  OnClick="Consulter" Width="100%" runat="server" Text="Choisir" CssClass="btn btn-success" />
+                    <br />
+                </td>
         </AlternatingItemTemplate>
         <EditItemTemplate>
             <td runat="server" style="">ID_CANDIDAT:
@@ -64,25 +76,27 @@
                 <br /></td>
         </InsertItemTemplate>
         <ItemTemplate>
-            <td runat="server" style="">ID_CANDIDAT:
-                <asp:Label ID="ID_CANDIDATLabel" runat="server" Text='<%# Eval("ID_CANDIDAT") %>' />
-                <br />LIBELLE_SYNDICAT:
-                <asp:Label ID="LIBELLE_SYNDICATLabel" runat="server" Text='<%# Eval("LIBELLE_SYNDICAT") %>' />
-                <br />PRENOM_NOM_SG:
+            <td runat="server" style="">
+                <asp:Label ID="ID_CANDIDATLabel" Width="100%" runat="server" Text='<%# Eval("ID_CANDIDAT") %>' Visible="false"/>
+                <%--<br />LIBELLE_SYNDICAT:
+                <asp:Label ID="LIBELLE_SYNDICATLabel" runat="server" Text='<%# Eval("LIBELLE_SYNDICAT") %>' />--%>
+                <br />
+                <asp:Label CssClass="btn btn-success" Width="100%" ID="Label2" runat="server" Text='<%# Eval("CODE_SYNDICAT") %>' />
+                <%--<br />PRENOM_NOM_SG:
                 <asp:Label ID="PRENOM_NOM_SGLabel" runat="server" Text='<%# Eval("PRENOM_NOM_SG") %>' />
                 <br />PHOTO_SG:
                 <asp:Image ID="PHOTO_SGLabel" Width="25%" runat="server" ImageUrl='<%# Eval("PHOTO_SG", "~/elections/images/{0}") %>' AlternateText="404" Visible="true" />
+                <br />--%>
                 <br />
-                <asp:Button ID="Button1" CommandArgument='<%# Eval("ID_CANDIDAT")%>' OnClick="Consulter" runat="server" Text="Button" />
+                <asp:Button ID="Button1" CommandArgument='<%# Eval("ID_CANDIDAT")%>' OnClick="Consulter" runat="server" Width="100%" Text="Choisir" CssClass="btn btn-success" />
                 <br />
-                <asp:Button ID="Button2" runat="server" Text="confirm" />
             </td>
         </ItemTemplate>
         <LayoutTemplate>
             <table runat="server">
                 <tr runat="server">
-                    <td runat="server">
-                        <table id="groupPlaceholderContainer" runat="server" border="0" style="">
+                    <td runat="server" width="100%">
+                        <table id="groupPlaceholderContainer" runat="server" border="0" style="" class="table">
                             <tr id="groupPlaceholder" runat="server">
                             </tr>
                         </table>

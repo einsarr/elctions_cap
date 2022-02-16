@@ -5,7 +5,7 @@ Partial Class elections_Resultats
 
     Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim cr1 As New ReportDocument
-        cr1.Load("~/elections/CrystalReport.rpt")
+        cr1.Load("~/elections_cap_cd/CrystalReport.rpt")
 
 
     End Sub

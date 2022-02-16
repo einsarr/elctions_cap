@@ -63,14 +63,14 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Accueil</a></li>
-                        <li><a runat="server" href="~/elections/CorpsGroupes">Colleges</a></li>
-                        <li><a runat="server" href="~/elections/Corps">Corps</a></li>
-                        <li><a runat="server" href="~/elections/ParamScrutin">Param scrutin</a></li>
-                        <li><a runat="server" href="~/elections/Syndicat">Syndicats</a></li>
-                        <li><a runat="server" href="~/elections/Candidat">Candidats</a></li>
-                        <li><a runat="server" href="~/elections/Grade">Grades</a></li>
-                        <li><a runat="server" href="~/elections/Vote">Vote</a></li>
-                        <li><a runat="server" href="~/elections/Resultats">Résultats</a></li>
+                        <li><a runat="server" href="~/elections_cap_cd/CorpsGroupes">Colleges</a></li>
+                        <li><a runat="server" href="~/elections_cap_cd/Corps">Corps</a></li>
+                        <li><a runat="server" href="~/elections_cap_cd/ParamScrutin">Param scrutin</a></li>
+                        <li><a runat="server" href="~/elections_cap_cd/Syndicat">Syndicats</a></li>
+                        <li><a runat="server" href="~/elections_cap_cd/Candidat">Candidats</a></li>
+                        <li><a runat="server" href="~/elections_cap_cd/Grade">Grades</a></li>
+                        <li><a runat="server" href="~/elections_cap_cd/Vote">Vote</a></li>
+                        <li><a runat="server" href="~/elections_cap_cd/Resultats">Résultats</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>

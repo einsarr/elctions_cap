@@ -15,14 +15,14 @@
                     <asp:BoundField DataField="ID_CORPS" HeaderText="ID_CORPS" InsertVisible="False" ReadOnly="True" SortExpression="ID_CORPS" />
                     <asp:BoundField DataField="LIBELLE_CORPS" HeaderText="LIBELLE_CORPS" SortExpression="LIBELLE_CORPS" />
                     <asp:BoundField DataField="HIERARCHIE" HeaderText="HIERARCHIE" SortExpression="HIERARCHIE" />
-                    <asp:BoundField DataField="LIBELLE_CORPS_GROUPES" HeaderText="LIBELLE_CORPS_GROUPES" SortExpression="LIBELLE_CORPS_GROUPES" />
+                    <asp:BoundField DataField="LIBELLE_CORPS_GROUPE" HeaderText="LIBELLE_CORPS_GROUPE" SortExpression="LIBELLE_CORPS_GROUPE" />
                 </Columns>
             </asp:GridView>
         </div>
     </div>
 
      
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT ELECTION_CAP_CORPS.ID_CORPS, ELECTION_CAP_CORPS.LIBELLE_CORPS, ELECTION_CAP_CORPS.HIERARCHIE, ELECTION_CAP_CORPS_GROUPES.LIBELLE_CORPS_GROUPES FROM ELECTION_CAP_CORPS INNER JOIN ELECTION_CAP_CORPS_GROUPES ON ELECTION_CAP_CORPS.ID_CORPS_GROUPE = ELECTION_CAP_CORPS_GROUPES.ID_CORPS_GROUPES"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT ELECTION_CAP_CORPS.ID_CORPS, ELECTION_CAP_CORPS.LIBELLE_CORPS, ELECTION_CAP_CORPS.HIERARCHIE, ELECTION_CAP_CORPS_GROUPE.LIBELLE_CORPS_GROUPE FROM ELECTION_CAP_CORPS INNER JOIN ELECTION_CAP_CORPS_GROUPE ON ELECTION_CAP_CORPS.ID_CORPS_GROUPE = ELECTION_CAP_CORPS_GROUPE.ID_CORPS_GROUPE"></asp:SqlDataSource>
 
 
      
@@ -71,9 +71,9 @@
                 </div>--%>
 
                  <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="DLL_CORPS_GROUPES">CORPS GROUPES *</asp:Label>
-                    <asp:DROPDOWNLIST runat="server" ID="DLL_CORPS_GROUPES" DataSourceID="SqlDLL_CORPS_GROUPES" CssClass="form-control" DataTextField="LIBELLE_CORPS_GROUPES" DataValueField="ID_CORPS_GROUPES"></asp:DROPDOWNLIST>
-                    <asp:SqlDataSource ID="SqlDLL_CORPS_GROUPES" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT NULL AS ID_CORPS_GROUPES, '--------' AS LIBELLE_CORPS_GROUPES UNION SELECT ID_CORPS_GROUPES, LIBELLE_CORPS_GROUPES FROM ELECTION_CAP_CORPS_GROUPES ORDER BY LIBELLE_CORPS_GROUPES"></asp:SqlDataSource>
+                    <asp:Label runat="server" AssociatedControlID="DLL_CORPS_GROUPE">CORPS GROUPE *</asp:Label>
+                    <asp:DROPDOWNLIST runat="server" ID="DLL_CORPS_GROUPE" DataSourceID="SqlDLL_CORPS_GROUPE" CssClass="form-control" DataTextField="LIBELLE_CORPS_GROUPE" DataValueField="ID_CORPS_GROUPE"></asp:DROPDOWNLIST>
+                    <asp:SqlDataSource ID="SqlDLL_CORPS_GROUPE" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT NULL AS ID_CORPS_GROUPE, '--------' AS LIBELLE_CORPS_GROUPE UNION SELECT ID_CORPS_GROUPE, LIBELLE_CORPS_GROUPE FROM ELECTION_CAP_CORPS_GROUPE ORDER BY LIBELLE_CORPS_GROUPE"></asp:SqlDataSource>
                  </div>
 
 

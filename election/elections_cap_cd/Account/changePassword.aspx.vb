@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Data
-Partial Class Account_validpassw
+Partial Class elections_cap_cd_Account_changePassword
     Inherits System.Web.UI.Page
     Sub initialiserChamps()
         Try
@@ -24,9 +24,10 @@ Partial Class Account_validpassw
 
         End Try
     End Sub
-    
+
     Protected Sub BtValid_Click(sender As Object, e As EventArgs) Handles BtValid.Click
         Try
+
             If TXT_PasswordNew.Text <> TXT_PasswordNew2.Text Then
                 LabelMsg.Text = "Le nouveau mot de passe et sa confirmation ne correspondent pas! Merci de vérifier."
                 initialiserChamps()
@@ -34,7 +35,7 @@ Partial Class Account_validpassw
             Else
 
                 ModifPassWord()
-                
+
             End If
         Catch ex As Exception
 
@@ -50,26 +51,31 @@ Partial Class Account_validpassw
             Dim Passwcrypt As String
             Dim Cryp As New Crypto
 
+
             Passwcrypt = Cryp.AES_Encrypt(TXT_PasswordNew.Text, "AxZD1&&é&é%é&&xDSDZA124_312143896")
-            AfficherMessage("ok")
+
             'TODO : Tester si ancien password OK
 
-            If Session("passw").ToString = TXT_PasswordInit.Text Then
 
-                Dim sqlEnsUpdate As New SqlCommand("UPDATE ELECTION_CAP_ELECTEUR " _
-                    & " SET PASSWORD_VALIDE = 1," _
-                    & " PASSWORD_ELECTEUR = '" & Passwcrypt & "'" _
-                    & " WHERE IDENTIFIANT_ELECTEUR ='" & Session("id_elect").ToString & "'")
+            If Session("Passw").ToString = TXT_PasswordInit.Text Then
+
+
+
+
+                Dim sqlEnsUpdate As New SqlCommand("UPDATE ENSEIGNANT " _
+    & " SET    PASSWORD_VALIDE = 1," _
+    & "        PASSWORD_ENSEIGNANT = '" & Passwcrypt & "'" _
+    & " WHERE  IDENTIFIANT_ENSEIGNANT ='" & Session("id_ens").ToString & "'")
 
                 'Remise nouveau password en session
-                Session("passw") = TXT_PasswordNew.Text
+                Session("Passw") = TXT_PasswordNew.Text
                 Dim ResultSetEns As DataSet
                 Dim con As New Connect
                 ResultSetEns = con.RunQuery(sqlEnsUpdate)
 
                 AfficherMessage("Changement de mot de passe bien effectué.")
                 Session("connexion_ok") = 1
-                Server.Transfer("~/elections_cap_cd/Voter.aspx")
+                Server.Transfer("~/voeux/listemvmt.aspx")
             Else
                 LabelMsg.Text = "Mot de passe initial incorrect"
             End If
@@ -80,16 +86,16 @@ Partial Class Account_validpassw
         End Try
     End Sub
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        LabelMsg.Text = ""
-        Try
-            LabelMatricule.Text = Session("prenom_elect") & " " & Session("nom_elect") & ", Matricule " & Session("matricule_elect")
-            If Session("id_elect") = "" Then
+        'LabelMsg.Text = ""
+        'Try
+        '    LabelMatricule.Text = Session("t_prenoms") & " " & Session("t_nom") & ", Matricule " & Session("t_matricule")
+        '    If Session("id_ens") = "" Then
 
-                Server.Transfer("~/elections_cap_cd/Default.aspx")
+        '        Server.Transfer("~/Default.aspx")
 
-            End If
-        Catch ex As Exception
-            Server.Transfer("~/elections_cap_cd/Default.aspx")
-        End Try
+        '    End If
+        'Catch ex As Exception
+        '    Server.Transfer("~/Default.aspx")
+        'End Try
     End Sub
 End Class
