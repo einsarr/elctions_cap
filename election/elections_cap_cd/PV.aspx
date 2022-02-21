@@ -15,11 +15,11 @@
                Liste des Ordres de Service par Site
                 <asp:GridView ID="GridViewPV" runat="server" CssClass="table table-bordered table-hover" PagerStyle-CssClass="paginations" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#3366CC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="SqlPV" PageSize="15" DataKeyNames="ID_CORPS_GROUPE">
                     <Columns>
-                        <asp:BoundField DataField="ETAT_CORPS_GROUPE" HeaderText="ETAT_CORPS_GROUPE" SortExpression="ETAT_CORPS_GROUPE" />
+                        <asp:BoundField DataField="ETAT_CORPS_GROUPE" HeaderText="ETAT_CORPS_GROUPE" SortExpression="ETAT_CORPS_GROUPE" Visible="False" />
                         <asp:BoundField DataField="LIBELLE_CORPS_GROUPE" HeaderText="LIBELLE_CORPS_GROUPE" SortExpression="LIBELLE_CORPS_GROUPE" />
-                        <asp:BoundField DataField="ID_CORPS_GROUPE" HeaderText="ID_CORPS_GROUPE" SortExpression="ID_CORPS_GROUPE" InsertVisible="False" ReadOnly="True" >
+                        <asp:BoundField DataField="ID_CORPS_GROUPE" HeaderText="ID_CORPS_GROUPE" SortExpression="ID_CORPS_GROUPE" InsertVisible="False" ReadOnly="True" Visible="False" >
                         </asp:BoundField>
-                    <asp:HyperLinkField DataNavigateUrlFields="ID_CORPS_GROUPE" DataNavigateUrlFormatString="http://www.mirador.education.gouv.sn:8081/ReportServer/Pages/ReportViewer.aspx?%2fRSMiroir%2foshm&amp;rs:Command=Render&amp;c_os={0}&amp;rs:Format=PDF" HeaderText="Procès verbal" Text="PV" />
+                    <asp:HyperLinkField DataNavigateUrlFields="ID_CORPS_GROUPE" DataNavigateUrlFormatString="http://www.mirador.education.gouv.sn:8081/ReportServer/Pages/ReportViewer.aspx?%2fRSMiroir%2fPV2&amp;rs:Command=Render&amp;rs:Format=PDF" HeaderText="Procès verbal" Text="PV" />
             
                     </Columns>
 
