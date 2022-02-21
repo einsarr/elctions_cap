@@ -11,15 +11,15 @@
         <br />
      <div class="col-md-12">
         <div class="table-responsive">
-            <asp:GridView ID="GridView1" CssClass="table table-bordered table-striped" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="ID_PARAM" DataSourceID="SqlDataSource1">
+            <asp:GridView ID="GridView1" CssClass="table table-bordered table-striped" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="ID_PARAM_ELECTION" DataSourceID="SqlDataSource1">
                 <Columns>
                     <asp:CommandField SelectText="S" ShowSelectButton="True" />
-                    <asp:BoundField DataField="ID_PARAM" HeaderText="N°" InsertVisible="False" ReadOnly="True" SortExpression="ID_PARAM" />
-<asp:BoundField DataField="CODE_ANNEE" HeaderText="ANNEE" SortExpression="CODE_ANNEE"></asp:BoundField>
+                    <asp:BoundField DataField="ID_PARAM_ELECTION" HeaderText="N°" InsertVisible="False" ReadOnly="True" SortExpression="ID_PARAM_ELECTION" />
+                    <asp:BoundField DataField="CODE_ANNEE" HeaderText="ANNEE" SortExpression="CODE_ANNEE"></asp:BoundField>
                     <asp:BoundField DataField="LIBELLE_ELECTION" HeaderText="LIBELLE ELECTION" SortExpression="LIBELLE_ELECTION" />
-                    <asp:BoundField DataField="DATE_DEBUT" HeaderText="DATE DE DEBUT" SortExpression="DATE_DEBUT" />
-                    <asp:BoundField DataField="DATE_FIN" HeaderText="DATE DE FIN" SortExpression="DATE_FIN" />
-                    <asp:BoundField DataField="ETAT" HeaderText="ETAT" SortExpression="ETAT" />
+                    <asp:BoundField DataField="DATE_OUVERTURE_SCRUTIN" HeaderText="DATE DE DEBUT" SortExpression="DATE_OUVERTURE_SCRUTIN" />
+                    <asp:BoundField DataField="DATE_FERMETURE_SCRUTIN" HeaderText="DATE DE FIN" SortExpression="DATE_FERMETURE_SCRUTIN" />
+                    <asp:BoundField DataField="ANNEE_ENCOURS" HeaderText="ETAT" SortExpression="ANNEE_ENCOURS" />
                 </Columns>
             </asp:GridView>
         </div>

@@ -3,10 +3,10 @@ Imports System.Data.SqlClient
 Partial Class elections_Colleges
     Inherits System.Web.UI.Page
 
-    Protected Sub btn_add_btn_add_corps_groupes_Click(sender As Object, e As EventArgs) Handles btn_add_corps_groupes.Click
+    Protected Sub btn_add_btn_add_corps_groupes_Click(sender As Object, e As EventArgs) Handles btn_add_corps_groupe.Click
         Dim con As New SqlConnection
         Dim cmd As New SqlCommand
-        Dim libelle_corps_groupes As String = TXT_LIBELLE_CORPS_GROUPES.Text
+        Dim libelle_corps_groupes As String = TXT_LIBELLE_CORPS_GROUPE.Text
         con.ConnectionString = "Data Source=.;Initial Catalog=FUP;Integrated Security=True"
         con.Open()
 

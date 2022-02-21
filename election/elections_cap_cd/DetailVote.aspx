@@ -2,72 +2,71 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <br />
-    <asp:button id="btnCancel" CssClass="btn btn-danger" runat="server" text="Cancel" OnClientClick="JavaScript:window.history.back(1); return false;" /> 
+    <asp:button id="btnCancel" CssClass="btn btn-default" runat="server" text="Retour" OnClientClick="JavaScript:window.history.back(1); return false;" /> 
     
-    <br />
-    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+    <%--<asp:ImageButton ID="btnCancel" runat="server" Height="35px" ImageUrl="~/elections_cap_cd/images/retour.png" Width="40px" OnClientClick="JavaScript:window.history.back(1); return false;" />--%>
 
 
     <br />
-    <asp:GridView ID="Gv_lstCandidats" runat="server" AutoGenerateColumns="False" DataKeyNames="ID_CANDIDAT_LISTE" CssClass="table table-bordered table-striped">
-        <Columns>
-            <asp:BoundField DataField="ID_CANDIDAT_LISTE" HeaderText="ID_CANDIDAT_LISTE" InsertVisible="False" ReadOnly="True" SortExpression="ID_CANDIDAT_LISTE" />
-            <asp:BoundField DataField="ID_ELECTEUR" HeaderText="ID_ELECTEUR" SortExpression="ID_ELECTEUR" />
-            <asp:BoundField DataField="ID_CANDIDAT" HeaderText="ID_CANDIDAT" SortExpression="ID_CANDIDAT" />
-            <asp:BoundField DataField="RANG" HeaderText="RANG" SortExpression="RANG" />
-            <asp:BoundField DataField="PRENOM_ELECTEUR" HeaderText="PRENOM_ELECTEUR" SortExpression="PRENOM_ELECTEUR" />
-            <asp:BoundField DataField="NOM_ELECTEUR" HeaderText="NOM_ELECTEUR" SortExpression="NOM_ELECTEUR" />
-        </Columns>
-    </asp:GridView>
-    <%--<asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT EC.ID_CANDIDAT_LISTE, EC.ID_ELECTEUR, EC.ID_CANDIDAT, EC.RANG, E.PRENOM_ELECTEUR, E.NOM_ELECTEUR FROM ELECTION_CAP_CANDIDAT_LISTE AS EC INNER JOIN ELECTION_CAP_ELECTEUR AS E ON E.IDENTIFIANT_ELECTEUR = EC.ID_ELECTEUR INNER JOIN ELECTION_CAP_CANDIDAT AS C ON C.ID_CANDIDAT = EC.ID_CANDIDAT WHERE (C.ID_CANDIDAT = @ID_CANDIDAT) ORDER BY EC.RANG">
-        <SelectParameters>
-            <asp:QueryStringParameter  Name="ID_CANDIDAT" QueryStringField="confirm" />
-        </SelectParameters>
-    </asp:SqlDataSource>--%>
     <br />
-    <asp:DetailsView ID="Dtv_CandidatChoisi" runat="server" Height="50px" Width="125px" AutoGenerateRows="False" DataKeyNames="ID_CANDIDAT" CssClass="table table-bordered table-striped">
-        <Fields>
-            <asp:BoundField DataField="ID_CANDIDAT" HeaderText="ID_CANDIDAT" InsertVisible="False" ReadOnly="True" SortExpression="ID_CANDIDAT" />
-            <asp:BoundField DataField="ID_SYNDICAT" HeaderText="ID_SYNDICAT" SortExpression="ID_SYNDICAT" />
-            <asp:BoundField DataField="ID_CORPS_GROUPE" HeaderText="ID_CORPS_GROUPE" SortExpression="ID_CORPS_GROUPE" />
-            <asp:BoundField DataField="ID_CLASSE" HeaderText="ID_CLASSE" SortExpression="ID_CLASSE" />
-        </Fields>
-    </asp:DetailsView>
-    <%--<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT * FROM [ELECTION_CAP_CANDIDAT] WHERE ([ID_CANDIDAT] = @ID_CANDIDAT)">
-        <SelectParameters>
-            <asp:QueryStringParameter Name="ID_CANDIDAT" QueryStringField="confirm" Type="Int32" />
-        </SelectParameters>
-    </asp:SqlDataSource>--%>
+    <%--<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>--%>
+    <div class="col-md-8 col-md-offset-1">
 
-
-    <%--<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID_CANDIDAT">
-        <Columns>
-            <asp:BoundField DataField="ID_CANDIDAT" HeaderText="ID_CANDIDAT" InsertVisible="False" ReadOnly="True" SortExpression="ID_CANDIDAT" />
-            <asp:BoundField DataField="ID_SYNDICAT" HeaderText="ID_SYNDICAT" SortExpression="ID_SYNDICAT" />
-            <asp:BoundField DataField="ID_CORPS_GROUPE" HeaderText="ID_CORPS_GROUPE" SortExpression="ID_CORPS_GROUPE" />
-            <asp:BoundField DataField="ID_CLASSE" HeaderText="ID_CLASSE" SortExpression="ID_CLASSE" />
-        </Columns>
-    </asp:GridView>--%>
-    <br />
-
-    <asp:Button ID="BtnConfirmVote" runat="server" Text="Valider mon choix" CssClass="btn-xs btn-primary"/>
+        <div class="row">
+            <div class="col-md-4">
+                <asp:DetailsView ID="Dtv_CandidatChoisi" runat="server" AutoGenerateRows="False" DataKeyNames="CODE_SYNDICAT" CssClass="table table-bordered table-striped">
+                    <Fields>
+                        <asp:BoundField DataField="CODE_SYNDICAT" HeaderText="MON CHOIX" SortExpression="CODE_SYNDICAT">
+                        <ControlStyle BackColor="#FF6666" Font-Bold="True" ForeColor="White" />
+                        <ItemStyle BackColor="#CC0000" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" VerticalAlign="Middle" />
+                        </asp:BoundField>
+                    </Fields>
+                </asp:DetailsView>
+            </div>
+            <div class="col-md-8">
+                <asp:GridView ID="Gv_lstCandidats" runat="server" AutoGenerateColumns="False" DataKeyNames="ID_CANDIDAT_LISTE" CssClass="table table-bordered table-striped">
+                    <Columns>
+                        <asp:BoundField DataField="ID_CANDIDAT_LISTE" HeaderText="ID_CANDIDAT_LISTE" Visible="false" ReadOnly="True" SortExpression="ID_CANDIDAT_LISTE" />
+                        <asp:BoundField DataField="ID_ELECTEUR" HeaderText="ID_ELECTEUR" SortExpression="ID_ELECTEUR" Visible="false" />
+                        <asp:BoundField DataField="ID_CANDIDAT" HeaderText="ID_CANDIDAT" SortExpression="ID_CANDIDAT" Visible="false" />
+                        <asp:BoundField DataField="PRENOM_ELECTEUR" HeaderText="PRENOM" SortExpression="PRENOM_ELECTEUR" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="NOM_ELECTEUR" HeaderText="NOM" SortExpression="NOM_ELECTEUR" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="TYPE_CANDIDAT" HeaderText="TYPE" SortExpression="TYPE_CANDIDAT" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="RANG" HeaderText="RANG" SortExpression="RANG" />
+                        <asp:BoundField DataField="LIBELLE_CORPS" HeaderText="CORPS" SortExpression="LIBELLE_CORPS" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        </asp:BoundField>
+                    </Columns>
+                </asp:GridView>
+            </div>
+        </div>
     
-    <asp:Panel ID="PanelConfirmVote" runat="server">
-        <table>
-            <tr>
-                <td>Valider le vote avec le bouton [<strong>OK</strong>]. Sinon cliquer sur [<strong>Annuler</strong>] </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Button ID="bt_poursuivreVote" CssClass="btn-xs btn-success btn-xs" runat="server" Text="OK" />
-                    <asp:Button ID="bt_annulerVote" CssClass="btn-xs btn-danger btn-xs" runat="server" Text="Annuler" />
-                </td>
-            </tr>
-        </table>
+    <%--<asp:Button ID="BtnConfirmVote" runat="server" Text="Valider mon choix" CssClass="btn-xs btn-primary"/>--%>
+    
+        <div class="col-md-12 col-md-offset-6">
+    <asp:ImageButton ID="BtnConfirmVote" runat="server" ImageUrl="~/elections_cap_cd/images/urne-vote.gif" Width="20%" />
+            <asp:Panel ID="PanelConfirmVote" runat="server">
+                <table>
+                    <tr>
+                        <td>Valider le vote avec le bouton [<strong>OK</strong>]. Sinon cliquer sur [<strong>Annuler</strong>] </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Button ID="bt_poursuivreVote" CssClass="btn-xs btn-success btn-xs" runat="server" Text="OK" />
+                            <asp:Button ID="bt_annulerVote" CssClass="btn-xs btn-danger btn-xs" runat="server" Text="Annuler" />
+                        </td>
+                    </tr>
+                </table>
 
-    </asp:Panel>
-
-
+            </asp:Panel>
+        </div>
+</div>
 
 </asp:Content>
 

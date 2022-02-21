@@ -5,20 +5,14 @@ Partial Class elections_Candidat
     Inherits System.Web.UI.Page
 
     Protected Sub btn_add_candidat_Click(sender As Object, e As EventArgs) Handles btn_add_candidat.Click
-        'Dim photo_candicat As String
-        System.Threading.Thread.Sleep(5000)
         Dim connectionString As String = ConfigurationManager.ConnectionStrings("FUPConnectionString").ConnectionString
-        'Dim folderpath As String = Server.MapPath("~/elections/images/")
-        'photo_candicat = DLL_SYNDICAT.SelectedValue.ToString & "_photocandidat" & System.IO.Path.GetExtension(IMG_PHOTO_CANDIDAT.FileName)
-        'If Me.IMG_PHOTO_CANDIDAT.HasFile Then
-        '    IMG_PHOTO_CANDIDAT.SaveAs(folderpath & photo_candicat)
-        'End If
-        Dim query As String = "INSERT INTO ELECTION_CAP_CANDIDAT(ID_SYNDICAT,ID_CORPS_GROUPES,ID_CLASSE) VALUES (@ID_SYNDICAT,@ID_CORPS_GROUPES,@ID_CLASSE)"
+        Dim query As String = "INSERT INTO ELECTION_CAP_CANDIDAT_LISTE(ID_ELECTEUR,ID_CANDIDAT,TYPE_CANDIDAT,RANG) VALUES (@ID_ELECTEUR,@ID_CANDIDAT,@TYPE_CANDIDAT,@RANG)"
         Dim con As New SqlConnection(connectionString)
         Dim cmd As New SqlCommand(query, con)
-        cmd.Parameters.AddWithValue("@ID_SYNDICAT", DLL_SYNDICAT.SelectedValue.ToString)
-        'cmd.Parameters.AddWithValue("@ID_CORPS_GROUPES", DLL_CORPS_GROUPES.SelectedValue.ToString)
-        'cmd.Parameters.AddWithValue("@ID_CLASSE", DLL_CLASSE.SelectedValue.ToString)
+        cmd.Parameters.AddWithValue("@ID_ELECTEUR", DLL_ELECTEUR.SelectedValue.ToString)
+        cmd.Parameters.AddWithValue("@ID_CANDIDAT", DLL_CANDIDAT.SelectedValue.ToString)
+        cmd.Parameters.AddWithValue("@TYPE_CANDIDAT", DDL_TYPE_CANDIDAT.SelectedValue.ToString)
+        cmd.Parameters.AddWithValue("@RANG", TXT_RANG.Text)
         con.Open()
         cmd.ExecuteNonQuery()
         con.Close()

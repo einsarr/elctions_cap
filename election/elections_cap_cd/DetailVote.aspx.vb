@@ -12,8 +12,14 @@ Partial Class elections_Detail
         If Session("connexion_ok") = 1 Then
             Dim electeur As Integer = secure.Decrypt(HttpUtility.UrlDecode(Request.QueryString("confirm")))
             'Label1.Text = nbre.ToString
-            Dim sqlListCandidats As New SqlCommand("SELECT EC.ID_CANDIDAT_LISTE, EC.ID_ELECTEUR, EC.ID_CANDIDAT, EC.RANG, E.PRENOM_ELECTEUR, E.NOM_ELECTEUR FROM ELECTION_CAP_CANDIDAT_LISTE AS EC INNER JOIN ELECTION_CAP_ELECTEUR AS E ON E.IDENTIFIANT_ELECTEUR = EC.ID_ELECTEUR INNER JOIN ELECTION_CAP_CANDIDAT AS C ON C.ID_CANDIDAT = EC.ID_CANDIDAT WHERE C.ID_CANDIDAT = '" & electeur & "' ORDER BY EC.RANG")
-            Dim sqlCandidatChoisi As New SqlCommand("SELECT * FROM [ELECTION_CAP_CANDIDAT] WHERE ID_CANDIDAT = '" & electeur & "'")
+            Dim sqlListCandidats As New SqlCommand("SELECT EC.ID_CANDIDAT_LISTE, EC.ID_ELECTEUR,
+            EC.ID_CANDIDAT, EC.RANG, E.PRENOM_ELECTEUR, E.NOM_ELECTEUR,EC.TYPE_CANDIDAT,CO.LIBELLE_CORPS 
+            FROM ELECTION_CAP_CANDIDAT_LISTE AS EC 
+            INNER JOIN ELECTION_CAP_ELECTEUR AS E ON E.IDENTIFIANT_ELECTEUR = EC.ID_ELECTEUR 
+            INNER JOIN ELECTION_CAP_CANDIDAT AS C ON C.ID_CANDIDAT = EC.ID_CANDIDAT
+            INNER JOIN ELECTION_CAP_CORPS CO ON CO.ID_CORPS=E.ID_CORPS
+            WHERE C.ID_CANDIDAT = '" & electeur & "' ORDER BY EC.RANG")
+            Dim sqlCandidatChoisi As New SqlCommand("SELECT ELECTION_CAP_SYNDICAT.CODE_SYNDICAT FROM  ELECTION_CAP_SYNDICAT INNER JOIN ELECTION_CAP_CANDIDAT ON ELECTION_CAP_SYNDICAT.ID_SYNDICAT = ELECTION_CAP_CANDIDAT.ID_SYNDICAT WHERE ID_CANDIDAT = '" & electeur & "'")
 
             Gv_lstCandidats.DataSource = outils.RunQuery(sqlListCandidats)
             Gv_lstCandidats.DataBind()
