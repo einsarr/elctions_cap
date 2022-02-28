@@ -21,7 +21,8 @@
                 </Fields>
 
             </asp:DetailsView>
-    
+            <asp:LinkButton ID="LinkButton1" runat="server" PostBackUrl="~/elections_cap_cd/Account/deconnexion.aspx" CssClass="btn btn-default btn-xs">Déconnexion</asp:LinkButton>
+            
             <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:FUPConnectionString %>" SelectCommand="SELECT ELECTION_CAP_ELECTEUR.MATRICULE_ELECTEUR, ELECTION_CAP_ELECTEUR.PRENOM_ELECTEUR, ELECTION_CAP_ELECTEUR.NOM_ELECTEUR, ELECTION_CAP_CLASSE.LIBELLE_CLASSE, ELECTION_CAP_CORPS.LIBELLE_CORPS, ELECTION_CAP_ELECTEUR.IDENTIFIANT_ELECTEUR FROM ELECTION_CAP_ELECTEUR INNER JOIN ELECTION_CAP_CORPS ON ELECTION_CAP_ELECTEUR.ID_CORPS = ELECTION_CAP_CORPS.ID_CORPS INNER JOIN ELECTION_CAP_CLASSE ON ELECTION_CAP_ELECTEUR.ID_CLASSE = ELECTION_CAP_CLASSE.ID_CLASSE WHERE ELECTION_CAP_ELECTEUR.IDENTIFIANT_ELECTEUR =@IDENTIFIANT_ELECTEUR">
                 <SelectParameters>
                     <asp:SessionParameter Name="IDENTIFIANT_ELECTEUR" SessionField="id_elect" />

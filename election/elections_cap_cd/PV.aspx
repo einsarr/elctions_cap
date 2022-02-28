@@ -20,7 +20,6 @@
                         <asp:BoundField DataField="ID_CORPS_GROUPE" HeaderText="ID_CORPS_GROUPE" SortExpression="ID_CORPS_GROUPE" InsertVisible="False" ReadOnly="True" Visible="False" >
                         </asp:BoundField>
                     <asp:HyperLinkField DataNavigateUrlFields="ID_CORPS_GROUPE" DataNavigateUrlFormatString="http://www.mirador.education.gouv.sn:8081/ReportServer/Pages/ReportViewer.aspx?%2fRSMiroir%2fPV2&amp;rs:Command=Render&amp;rs:Format=PDF" HeaderText="Procès verbal" Text="PV" />
-            
                     </Columns>
 
 <PagerStyle CssClass="paginations"></PagerStyle>

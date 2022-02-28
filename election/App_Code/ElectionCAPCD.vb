@@ -124,6 +124,36 @@ Public Class ElectionCAPCD
             End If
         End Using
     End Function
+    'Nombre de Votant
+    Public Function NombreDeVotants() As Integer
+        Dim ids As Integer
+        Using con As New SqlConnection(sconn)
+            con.Open()
+            Dim cmd As New SqlCommand("SELECT COUNT(IDENTIFIANT_ELECTEUR) FROM ELECTION_CAP_ELECTEUR WHERE A_VOTE=1", con)
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                ids = reader.GetInt32(0)
+            End While
+            con.Close()
+            reader.Close()
+            Return ids
+        End Using
+    End Function
+
+    Public Function NombreDInscrits() As Integer
+        Dim ids As Integer
+        Using con As New SqlConnection(sconn)
+            con.Open()
+            Dim cmd As New SqlCommand("SELECT COUNT(IDENTIFIANT_ELECTEUR) FROM ELECTION_CAP_ELECTEUR", con)
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                ids = reader.GetInt32(0)
+            End While
+            con.Close()
+            reader.Close()
+            Return ids
+        End Using
+    End Function
 
 
 End Class

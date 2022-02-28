@@ -59,7 +59,7 @@ Partial Class _Connect
 
             Dim sqlEns As New SqlCommand("SELECT " _
             & " CAP.MATRICULE_ELECTEUR, CAP.IDENTIFIANT_ELECTEUR,CAP.NOM_ELECTEUR, CAP.PASSWORD_VALIDE," _
-            & " CAP.DATE_NAISSANCE_ELECTEUR,CAP.PRENOM_ELECTEUR,CAP.ID_CORPS,CAP.ID_CLASSE,CAP.PASSWORD_ELECTEUR " _
+            & " CAP.DATE_NAISSANCE_ELECTEUR,CAP.PRENOM_ELECTEUR,CAP.ID_CORPS,CAP.ID_CLASSE,CAP.PASSWORD_ELECTEUR,CAP.A_VOTE " _
     & " FROM ELECTION_CAP_ELECTEUR AS CAP " _
     & " WHERE(CAP.MATRICULE_ELECTEUR = '" & TXT_Login.Text & "') AND (CAP.PASSWORD_ELECTEUR = '" & Passwcrypt & "')")
 
@@ -82,7 +82,6 @@ Partial Class _Connect
                         Session("nom_elect") = rowEns("NOM_ELECTEUR").ToString
                         Session("classe_elect") = rowEns("ID_CLASSE").ToString
                         Session("prenom_elect") = rowEns("PRENOM_ELECTEUR").ToString
-                        'Session("grade_elect") = rowEns("ID_GRADE").ToString
                         Session("corps_elect") = rowEns("ID_CORPS").ToString
                         Session("date_naiss_elect") = rowEns("DATE_NAISSANCE_ELECTEUR")
                         Session("pass_valid") = rowEns("PASSWORD_VALIDE").ToString
@@ -94,10 +93,9 @@ Partial Class _Connect
                 Next
                 Dim age As Integer = election.CalculAge(Session("date_naiss_elect"))
                 Dim age65 As Boolean = election.CORPS_RETRAITE_65ANS(Session("id_elect"))
-                Dim age55 As Boolean = election.CORPS_RETRAITE_55ANS(Session("id_elect"))
                 If Session("pass_valid") = 1 Then
                     If election.PeriodeOuvertureScrutin() = True Then
-                        If (age65 = True And age < 65) Or (age65 = False And age < 60) Or (age55 = True And age < 55) Then
+                        If (age65 = True And age < 65) Or (age65 = False And age < 60) Then
                             If election.ADEJAVOTE(Session("id_elect")) = False Then
                                 If election.CompteBloque(Session("id_elect")) = False Then
                                     Session("connexion_ok") = 1
@@ -106,7 +104,7 @@ Partial Class _Connect
                                     AfficherMessage("Compte bloqué - Veuillez saisir l'administrateur")
                                 End If
                             Else
-                                AfficherMessage("Déjà voté")
+                                AfficherMessage("Vous avez déjà voté")
                             End If
                         Else
                             AfficherMessage("L'âge d'éligibilité dépassé")
